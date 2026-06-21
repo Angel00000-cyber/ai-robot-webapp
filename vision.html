@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEON-v9 AI Robot Interface - AI Vision</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Cyber Loading Animation -->
+    <div id="cyberLoader">
+        <div class="loader-logo">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2a5 5 0 0 0-5 5v2a1 1 0 0 0-1 1v4a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-4a1 1 0 0 0-1-1V7a5 5 0 0 0-5-5zm-3 7V7a3 3 0 1 1 6 0v2H9zm8 5a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-3h8v3z"/>
+            </svg>
+        </div>
+        <div class="loader-text">Loading AI Vision Engine</div>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+    </div>
+
+    <!-- Background Grid overlay -->
+    <div class="grid-overlay"></div>
+
+    <div class="app-container">
+        
+        <!-- Mobile Header Bar -->
+        <header class="mobile-header">
+            <div class="sidebar-brand" style="margin-bottom: 0;">
+                <div class="sidebar-logo">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2a5 5 0 0 0-5 5v2a1 1 0 0 0-1 1v4a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-4a1 1 0 0 0-1-1V7a5 5 0 0 0-5-5zm-3 7V7a3 3 0 1 1 6 0v2H9zm8 5a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-3h8v3z"/>
+                    </svg>
+                </div>
+                <span class="brand-text">AEON-v9</span>
+            </div>
+            <button class="burger-btn" id="mobileBurger" aria-label="Toggle Navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </header>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebarMenu">
+            <div class="sidebar-brand">
+                <div class="sidebar-logo">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2a5 5 0 0 0-5 5v2a1 1 0 0 0-1 1v4a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-4a1 1 0 0 0-1-1V7a5 5 0 0 0-5-5zm-3 7V7a3 3 0 1 1 6 0v2H9zm8 5a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-3h8v3z"/>
+                    </svg>
+                </div>
+                <span class="brand-text">AEON-v9</span>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li class="menu-item">
+                    <a href="control.html" class="menu-link">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="6"/>
+                            <circle cx="12" cy="12" r="2"/>
+                        </svg>
+                        Robot Control
+                    </a>
+                </li>
+                <li class="menu-item active">
+                    <a href="vision.html" class="menu-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            <rect x="7" y="7" width="6" height="6" rx="1"/>
+                        </svg>
+                        AI Vision
+                    </a>
+                </li>
+                <li class="menu-item" style="margin-top: 30px;">
+                    <a href="index.html" class="menu-link" style="border-color: rgba(255, 0, 85, 0.15); color: var(--color-error);">
+                        <svg viewBox="0 0 24 24" style="stroke: var(--color-error);">
+                            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/>
+                        </svg>
+                        Disconnect
+                    </a>
+                </li>
+            </ul>
+
+            <div class="system-status">
+                <div class="status-label">SYS CONNECTION STATUS</div>
+                <div class="status-badge">
+                    <span class="status-dot" id="systemStatusDot"></span>
+                    <span id="systemStatusText">CONNECTED</span>
+                </div>
+                <div class="status-label" style="margin-top: 10px; margin-bottom: 0;" id="latencyText">PING: 8ms</div>
+            </div>
+        </aside>
+
+        <!-- Main Vision Panel -->
+        <main class="main-content">
+            <div class="page-container">
+                
+                <!-- Page Title Header -->
+                <div class="card-header" style="margin-bottom: 0;">
+                    <h2 class="card-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                        AI NEURAL IMAGE RECOGNITION
+                    </h2>
+                    <span class="neon-text" id="visionEngineStatus" style="font-family: var(--font-mono); font-size: 0.85rem;">DETECTOR: PROCESSING</span>
+                </div>
+
+                <!-- Vision Page Layout -->
+                <div class="control-grid" style="grid-template-columns: 1.2fr 0.8fr;">
+                    
+                    <!-- Left Column: Webcam Visual Overlay Display -->
+                    <div class="glass-card" style="display: flex; flex-direction: column; min-height: 500px; padding: 0;">
+                        <div class="card-header" style="border-bottom: none; margin-bottom: 0; padding: 20px;">
+                            <h3 class="card-title">Webcam Stream Feed</h3>
+                            <span class="neon-text-sec" id="webcamStatus" style="font-family: var(--font-mono); font-size: 0.85rem;">WEBCAM: OFFLINE</span>
+                        </div>
+                        
+                        <!-- Webcam Feed Viewer -->
+                        <div style="flex-grow: 1; position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                            <video id="webcamVideo" autoplay playsinline muted style="display: none; width: 100%; height: 100%; object-fit: cover;"></video>
+                            <canvas id="visionOverlayCanvas" style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16/9;"></canvas>
+                        </div>
+                        
+                        <!-- Control panel for webcam -->
+                        <div class="webcam-controls" style="padding: 15px; display: flex; gap: 10px; justify-content: center; background: rgba(10, 15, 30, 0.4); border-top: 1px solid var(--border-glow);">
+                            <button type="button" class="cyber-btn filled" id="btnToggleWebcam" style="width: 100%; max-width: 250px;">Initialize Webcam</button>
+                            <button type="button" class="cyber-btn sec" id="btnClearClassifier" style="display: none; padding: 10px 15px;">Clear Memory</button>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: System diagnostics / Log feed -->
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+
+                        <!-- Target Object Memory Module -->
+                        <div class="glass-card">
+                            <div class="card-header" style="border-bottom: none; margin-bottom: 12px; padding-bottom: 0;">
+                                <h3 class="card-title">Target Object Memory</h3>
+                                <span class="class-samples-badge" id="targetSamplesBadge">0 Reference Angles</span>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
+                                <label class="status-item-lbl" style="font-size: 0.72rem; letter-spacing: 0.5px; color: var(--text-secondary);">TARGET REGISTER NAME</label>
+                                <input type="text" id="targetObjectName" class="cyber-input" value="Custom Target" style="font-family: var(--font-header); font-weight: 600; padding: 10px; font-size: 0.9rem;" placeholder="Enter target name...">
+                            </div>
+                            <div class="class-upload-row" style="margin-top: 5px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                <button type="button" class="cyber-btn" id="btnUploadTarget" style="font-size: 0.75rem; padding: 8px 16px;">Upload Angles</button>
+                                <input type="file" id="targetImageInput" class="class-file-input" accept="image/*" multiple style="display: none;">
+                                <div class="class-thumbnails-row" id="targetThumbnailsContainer" style="display: flex; gap: 6px; overflow-x: auto; flex-grow: 1; min-height: 34px; align-items: center; border: 1px solid rgba(255,255,255,0.05); padding: 4px; border-radius: 4px;">
+                                    <span style="color: var(--text-muted); font-size: 0.7rem; font-family: var(--font-mono)">NO ANGLES LOADED</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Neural Tracker Status Panel -->
+                        <div class="glass-card">
+                            <div class="card-header" style="border-bottom: none; margin-bottom: 12px; padding-bottom: 0;">
+                                <h3 class="card-title">Neural Tracker Status</h3>
+                            </div>
+                            <div class="status-list" id="trackedObjectsListContainer" style="display: flex; flex-direction: column; gap: 8px; min-height: 90px; max-height: 150px; overflow-y: auto; padding-right: 5px;">
+                                <span style="color: var(--text-muted); font-size: 0.75rem; font-family: var(--font-mono); text-align: center; display: block; padding-top: 25px;">NO DETECTIONS ACTIVE</span>
+                            </div>
+                            <div class="status-list" style="margin-top: 15px; border-top: 1px solid rgba(var(--accent-rgb), 0.15); padding-top: 12px;">
+                                <div class="status-row">
+                                    <span class="status-item-lbl">Neural Engine</span>
+                                    <span class="status-item-val" id="activeModelName" style="color: var(--accent-sec);">Initializing...</span>
+                                </div>
+                                <div class="status-row">
+                                    <span class="status-item-lbl">Trained reference frames</span>
+                                    <span class="status-item-val" id="totalSamplesCount">0 angles</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Real-time Detections list -->
+                        <div class="glass-card" style="flex-grow: 1; display: flex; flex-direction: column;">
+                            <div class="card-header" style="border-bottom: none; margin-bottom: 10px; padding-bottom: 0;">
+                                <h3 class="card-title">Target Recognition Log</h3>
+                            </div>
+                            
+                            <div style="flex-grow: 1; overflow-y: auto; max-height: 160px; padding-right: 5px;" id="visionDetectionsList">
+                                <!-- Populated dynamically by script.js -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Alert Panel -->
+    <div id="hudAlertContainer"></div>
+
+    <!-- TensorFlow.js, MobileNet, KNN Classifier, and COCO-SSD dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.18.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0/dist/mobilenet.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/knn-classifier@1.2.4/dist/knn-classifier.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.2/dist/coco-ssd.min.js"></script>
+
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

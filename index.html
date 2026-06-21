@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEON-v9 AI Robot Interface - Home</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Cyber Loading Animation -->
+    <div id="cyberLoader">
+        <div class="loader-logo">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2a5 5 0 0 0-5 5v2a1 1 0 0 0-1 1v4a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-4a1 1 0 0 0-1-1V7a5 5 0 0 0-5-5zm-3 7V7a3 3 0 1 1 6 0v2H9zm8 5a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-3h8v3z"/>
+            </svg>
+        </div>
+        <div class="loader-text">AEON System Handshake</div>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+    </div>
+
+    <!-- Background Grid overlay -->
+    <div class="grid-overlay"></div>
+
+    <!-- Main Navigation Header for Landing Page -->
+    <header class="mobile-header" style="display: flex; position: absolute; background: transparent; border-bottom: none;">
+        <div class="sidebar-brand" style="margin-bottom: 0;">
+            <div class="sidebar-logo">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2a5 5 0 0 0-5 5v2a1 1 0 0 0-1 1v4a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-4a1 1 0 0 0-1-1V7a5 5 0 0 0-5-5zm-3 7V7a3 3 0 1 1 6 0v2H9zm8 5a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-3h8v3z"/>
+                </svg>
+            </div>
+            <span class="brand-text">AEON-v9</span>
+        </div>
+        <div style="display: flex; gap: 15px; align-items: center;">
+        </div>
+    </header>
+
+    <div class="main-content" style="width: 100vw; min-height: 100vh; overflow-y: auto; padding-top: 80px;">
+        <div class="page-container">
+            
+            <!-- Hero Grid -->
+            <section class="home-grid">
+                <div class="home-hero-text">
+                    <span class="neon-text-sec" style="font-family: var(--font-mono); font-size: 0.9rem; letter-spacing: 2px;">NEURAL NET COGNITIVE UNIT</span>
+                    <h1 class="neon-text">AEON-v9</h1>
+                    <p>
+                        Welcome to the control interface of AEON-v9, a state-of-the-art robotic system powered by a cognitive neuro-network. Initialize the security handshake protocol to monitor live telemetry analytics, adjust stabilizer parameters, and feed object images into the recognition pipeline.
+                    </p>
+                    
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <a href="control.html" class="cyber-btn filled">Robot Control</a>
+                        <a href="#features" class="cyber-btn sec">Explore Features</a>
+                    </div>
+
+                    <!-- Quick Telemetry Specs -->
+                    <div class="hero-stats">
+                        <div class="hero-stat-card">
+                            <div class="hero-stat-val">100%</div>
+                            <div class="hero-stat-lbl">BATTERY CORE</div>
+                        </div>
+                        <div class="hero-stat-card">
+                            <div class="hero-stat-val">ACTIVE</div>
+                            <div class="hero-stat-lbl">TELEMETRY LINK</div>
+                        </div>
+                        <div class="hero-stat-card">
+                            <div class="hero-stat-val">32.4°C</div>
+                            <div class="hero-stat-lbl">CORE TEMP</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="home-hero-visual">
+                    <div class="hero-image-wrapper">
+                        <img src="assets/images/robot_hero.png" alt="AEON Robot Cybernetic Core">
+                    </div>
+                    <canvas class="hero-canvas-overlay" id="homeNeuralCanvas"></canvas>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features-section" id="features">
+                <div class="section-header">
+                    <h2>CORE FUNCTIONAL MODULES</h2>
+                    <p>Inspect system operations designed for real-time remote surveillance and control.</p>
+                </div>
+
+                <div class="features-grid">
+
+                    <div class="glass-card feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                                <circle cx="12" cy="12" r="6"/>
+                                <circle cx="12" cy="12" r="2"/>
+                            </svg>
+                        </div>
+                        <h3>Steering Matrices</h3>
+                        <p>Remote steering via digital D-pads, virtual analog joystick matrices, and real-time velocity controllers. Synchronize stabilizing gyros and headlights.</p>
+                    </div>
+
+                    <div class="glass-card feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M4 4h16v16H4z"/>
+                                <path d="M8 13l2.5-3 2.5 3 2-2.5L18 15H6z"/>
+                            </svg>
+                        </div>
+                        <h3>Object Data Feeder</h3>
+                        <p>Upload labeled object images so the robot can build a recognition data set and seed its AI detection pipeline without external camera hardware.</p>
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

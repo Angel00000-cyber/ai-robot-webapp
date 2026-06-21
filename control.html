@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEON-v9 AI Robot Interface - Motive Control</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Cyber Loading Animation -->
+    <div id="cyberLoader">
+        <div class="loader-logo">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2a5 5 0 0 0-5 5v2a1 1 0 0 0-1 1v4a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-4a1 1 0 0 0-1-1V7a5 5 0 0 0-5-5zm-3 7V7a3 3 0 1 1 6 0v2H9zm8 5a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-3h8v3z"/>
+            </svg>
+        </div>
+        <div class="loader-text">Loading Navigation Module</div>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+    </div>
+
+    <!-- Background Grid overlay -->
+    <div class="grid-overlay"></div>
+
+    <div class="app-container">
+        
+        <!-- Mobile Header Bar -->
+        <header class="mobile-header">
+            <div class="sidebar-brand" style="margin-bottom: 0;">
+                <div class="sidebar-logo">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2a5 5 0 0 0-5 5v2a1 1 0 0 0-1 1v4a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-4a1 1 0 0 0-1-1V7a5 5 0 0 0-5-5zm-3 7V7a3 3 0 1 1 6 0v2H9zm8 5a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-3h8v3z"/>
+                    </svg>
+                </div>
+                <span class="brand-text">AEON-v9</span>
+            </div>
+            <button class="burger-btn" id="mobileBurger" aria-label="Toggle Navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </header>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebarMenu">
+            <div class="sidebar-brand">
+                <div class="sidebar-logo">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2a5 5 0 0 0-5 5v2a1 1 0 0 0-1 1v4a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-4a1 1 0 0 0-1-1V7a5 5 0 0 0-5-5zm-3 7V7a3 3 0 1 1 6 0v2H9zm8 5a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-3h8v3z"/>
+                    </svg>
+                </div>
+                <span class="brand-text">AEON-v9</span>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li class="menu-item active">
+                    <a href="control.html" class="menu-link">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="6"/>
+                            <circle cx="12" cy="12" r="2"/>
+                        </svg>
+                        Robot Control
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="vision.html" class="menu-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            <rect x="7" y="7" width="6" height="6" rx="1"/>
+                        </svg>
+                        AI Vision
+                    </a>
+                </li>
+                <li class="menu-item" style="margin-top: 30px;">
+                    <a href="index.html" class="menu-link" style="border-color: rgba(255, 0, 85, 0.15); color: var(--color-error);">
+                        <svg viewBox="0 0 24 24" style="stroke: var(--color-error);">
+                            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/>
+                        </svg>
+                        Disconnect
+                    </a>
+                </li>
+            </ul>
+
+            <div class="system-status">
+                <div class="status-label">SYS CONNECTION STATUS</div>
+                <div class="status-badge">
+                    <span class="status-dot" id="systemStatusDot"></span>
+                    <span id="systemStatusText">CONNECTED</span>
+                </div>
+                <div class="status-label" style="margin-top: 10px; margin-bottom: 0;" id="latencyText">PING: 8ms</div>
+            </div>
+        </aside>
+
+        <!-- Main Navigation Desk View -->
+        <main class="main-content">
+            <div class="page-container">
+                
+                <!-- Page Title Header -->
+                <div class="card-header" style="margin-bottom: 0;">
+                    <h2 class="card-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="6"/>
+                            <circle cx="12" cy="12" r="2"/>
+                        </svg>
+                        NAVIGATION & STEERING MATRIX
+                    </h2>
+                    <span class="neon-text" id="motiveStatusText" style="font-family: var(--font-mono); font-size: 0.85rem;">PROPULSION: READY</span>
+                </div>
+
+                <!-- Steering Grid -->
+                <div class="control-grid">
+                    
+                    <!-- Motive Steering Panel (Left) -->
+                    <div class="glass-card motive-panel">
+                        <div class="card-header" style="width: 100%; border-bottom: none; margin-bottom: 10px;">
+                            <h3 class="card-title">Motive D-Pad steering</h3>
+                        </div>
+                        
+                        <!-- D-Pad Buttons -->
+                        <div class="dpad-container" id="dpadContainer">
+                            <button class="dpad-btn dpad-up" data-dir="UP">W</button>
+                            <button class="dpad-btn dpad-left" data-dir="LEFT">A</button>
+                            <div class="dpad-btn center-node">PAD</div>
+                            <button class="dpad-btn dpad-right" data-dir="RIGHT">D</button>
+                            <button class="dpad-btn dpad-down" data-dir="DOWN">S</button>
+                        </div>
+
+                        <!-- Speed / Throttle Slider -->
+                        <div class="slider-group" style="width: 100%; margin-top: 15px;">
+                            <div class="slider-labels">
+                                <span>Engine Motive Throttle</span>
+                                <span id="thrustVal">45%</span>
+                            </div>
+                            <input type="range" class="cyber-range" id="thrustSlider" min="0" max="100" value="45">
+                        </div>
+                    </div>
+
+                    <!-- Robotic Arm Control Panel (Right) -->
+                    <div class="glass-card arm-panel" id="armControlPanel" style="position: relative; overflow: hidden;">
+                        <!-- Arm Calibration Status Lock Overlay -->
+                        <div class="arm-lock-overlay" id="armLockOverlay">
+                            <span class="lock-icon">🔒</span>
+                            <span class="lock-text">ARM MODULE DEACTIVATED</span>
+                            <span class="lock-subtext">Enable "Servo Grippers" under Stabilizers to engage</span>
+                        </div>
+
+                        <div class="card-header" style="width: 100%; border-bottom: none; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                            <h3 class="card-title">Robotic Arm Link</h3>
+                            <span class="neon-text-sec" id="armStatusText" style="font-family: var(--font-mono); font-size: 0.85rem;">ARM: PARKED</span>
+                        </div>
+                        
+                        <div class="gamepad-arm-layout">
+                            <!-- Arm Directional Action Pad -->
+                            <div class="arm-dpad-container" id="armDpadContainer">
+                                <button class="arm-dpad-btn arm-up" data-arm-dir="UP" title="Move Up / Extend">UP</button>
+                                <button class="arm-dpad-btn arm-left" data-arm-dir="LEFT" title="Rotate CCW">L</button>
+                                <div class="arm-dpad-btn arm-center-node">ARM</div>
+                                <button class="arm-dpad-btn arm-right" data-arm-dir="RIGHT" title="Rotate CW">R</button>
+                                <button class="arm-dpad-btn arm-down" data-arm-dir="DOWN" title="Move Down / Retract">DN</button>
+                            </div>
+
+                            <!-- Arm Pick / Drop Triggers -->
+                            <div class="arm-actions-container">
+                                <button class="cyber-btn pick-btn" id="btnArmPick">
+                                    PICK (GRAB)
+                                </button>
+                                <button class="cyber-btn drop-btn" id="btnArmDrop">
+                                    DROP (RELEASE)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Stabilizers & Calibrations (Full Width) -->
+                <div class="glass-card stabilizers-card" style="margin-top: 20px;">
+                    <div class="card-header" style="border-bottom: none; margin-bottom: 15px;">
+                        <h3 class="card-title">Motive Stabilizers & Calibrations</h3>
+                    </div>
+                    <div class="toggle-grid">
+                        <div class="cyber-toggle-wrapper">
+                            <div class="toggle-info">
+                                <span class="toggle-name">Stabilizers</span>
+                                <span class="toggle-desc">Gyros Alignment</span>
+                            </div>
+                            <label class="cyber-switch">
+                                <input type="checkbox" id="toggleStabilizer" checked>
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
+                        <div class="cyber-toggle-wrapper">
+                            <div class="toggle-info">
+                                <span class="toggle-name">Servo Grippers</span>
+                                <span class="toggle-desc">Arm Calibrations</span>
+                            </div>
+                            <label class="cyber-switch">
+                                <input type="checkbox" id="toggleArms">
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
+                        <div class="cyber-toggle-wrapper">
+                            <div class="toggle-info">
+                                <span class="toggle-name">Front Headlight</span>
+                                <span class="toggle-desc">Stabilizer Beam</span>
+                            </div>
+                            <label class="cyber-switch">
+                                <input type="checkbox" id="toggleLights">
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
+                        <div class="cyber-toggle-wrapper">
+                            <div class="toggle-info">
+                                <span class="toggle-name">Impeller Speaker</span>
+                                <span class="toggle-desc">Audio Synthesizer</span>
+                            </div>
+                            <label class="cyber-switch">
+                                <input type="checkbox" id="toggleAudio">
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Voice Command Module -->
+                <div class="glass-card">
+                    <div class="card-header" style="border-bottom: none; margin-bottom: 5px;">
+                        <h3 class="card-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+                                <path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/>
+                            </svg>
+                            Voice commands link
+                        </h3>
+                        <span id="voiceStatusText" class="neon-text-sec" style="font-family: var(--font-mono); font-size: 0.85rem;">MIC: INACTIVE</span>
+                    </div>
+                    
+                    <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 15px;">
+                        Activate the voice command link to direct the robot. Speak actions such as: 
+                        <strong>"Move Forward"</strong>, <strong>"Move Backward"</strong>, <strong>"Turn Left"</strong>, <strong>"Turn Right"</strong>, or <strong>"Stop"</strong>.
+                    </p>
+
+                    <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+                        <button class="cyber-btn" id="btnVoiceCommand">
+                            Initialize Mic Link
+                        </button>
+                        <div class="voice-wave-container" style="flex-grow: 1;">
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="voiceCommandLog" style="margin-top: 15px; font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent); display: none;">
+                        Recognized command: <span id="voiceLastCommand" style="font-weight: bold; color: #fff;">None</span>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Alert Panel -->
+    <div id="hudAlertContainer"></div>
+
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
